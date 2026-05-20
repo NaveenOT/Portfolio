@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/drawer";
 import { DefaultChatTransport } from "ai";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
-import { KineticText} from "@/components/ui/kinetic-text";
+import { KineticText  } from "@/components/ui/kinetic-text";
 
 export default function Home() {
   const { messages, status, sendMessage } = useChat({

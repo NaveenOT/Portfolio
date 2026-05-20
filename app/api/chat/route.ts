@@ -7,15 +7,15 @@ export async function POST(req: Request) {
   const messages = body.messages;
   const lastMsg = messages[messages.length - 1];
   const latestMessage =
-    lastMsg.parts?.find((p: any) => p.type === "text")?.text ??
+    lastMsg.parts?.find((p: unknown) => (p as { type: string }).type === "text")?.text ??
     lastMsg.content ??
     "";
   const docs = await retrieveRelevantDocuments(latestMessage, 5); 
-  const context = docs.map((d: any) => d.content).join("\n");
+  const context = docs.map((d: unknown) => (d as { content: string }).content).join("\n");
 
   console.log("Retrieved documents:", docs);
   const formattedContext = docs
-  .map((doc: any) => doc.content)
+  .map((doc: unknown) => (doc as { content: string }).content)
   .join("\n\n---\n\n");
   const prompt = `
     You are an AI assistant for Naveen O.T’s portfolio website.

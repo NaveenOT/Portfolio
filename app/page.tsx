@@ -55,7 +55,7 @@ export default function Home() {
     <>
 
       <nav className="fixed top-0 left-0 w-full border-b bg-background shadow-md z-50 p-4 flex items-center justify-center scale-100 hover:scale-105 transition duration-300">
-        <KineticText text="Naveen's Portfolio" className="text-3xl font-bold tracking-wide" />
+        <KineticText text="Naveen's Portfolio" className="text-3xl font-bold tracking-wide" onClick={()=>setStarted(false)} />
       </nav>
       {!started && status !== 'streaming' && (
         <div className="flex h-screen flex-col items-center justify-center gap-4">
@@ -67,7 +67,7 @@ export default function Home() {
           <p className="text-xl">
             The{" "}
             <Highlighter action="underline" color="#FF9800" animationDuration={2500}>
-              Ask me anything 
+              Ask me anything
             </Highlighter>{" "}
             about my{" "}
             <Highlighter action="highlight" color="#87CEFA" animationDuration={2500}>
@@ -78,16 +78,16 @@ export default function Home() {
           <InteractiveHoverButton onClick={() => setStarted(true)}>
             Get Started
           </InteractiveHoverButton>
-          
+
         </div>
-        
+
       )}
       {
         started && (
           <div className="flex h-screen flex-col bg-background pt-20">
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 animate-fade-in">
               {messages.map((message) => (
-                <div key={message.id} className={message.role === "user" ? "ml-auto rounded-xl bg-primary text-primary-foreground p-4 w-fit max-w-[70%]" : "rounded-xl bg-muted p-4 w-fit max-w-[70%]"}>
+                <div key={message.id} className={message.role === "user" ? "ml-auto rounded-xl bg-primary text-primary-foreground p-4 w-fit max-w-[70%] text-lg" : "rounded-xl bg-muted p-4 w-fit max-w-[70%] text-lg"}>
                   <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
                     {message.parts.map(part => { return part.type === "text" ? part.text : null }).filter(Boolean).join("\n")}
                   </ReactMarkdown>
@@ -100,6 +100,7 @@ export default function Home() {
               )}
             </div>
             <div ref={messagesEndRef} />
+            <div className="animate-slide-up flex justify-center" style={{animationDelay: "80ms"}}>
             <Drawer>
               <DrawerTrigger
                 className="
@@ -135,7 +136,8 @@ export default function Home() {
 
               </DrawerContent>
             </Drawer>
-            <div className="p-4 pb-10">
+            </div>
+            <div className="p-4 pb-10 animate-slide-up" style={{animationDelay: "160ms"}}>
               <div className="flex flex-col gap-2 rounded-2xl border border-border bg-background px-4 pt-3 pb-2 shadow-md">
                 <Textarea placeholder="Ask anything about Naveen" className="min-h-[60px] !text-xl resize-none border-none shadow-none focus:visible:ring-0 p-2" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown} />
                 <div className="flex justify-end">

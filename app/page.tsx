@@ -1,7 +1,7 @@
 "use client";
 import "ai"
 import { useChat } from "@ai-sdk/react";
-import { ArrowUpIcon } from "lucide-react";
+import { ArrowUpIcon, Spline } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ResumeCard } from "@/app/ResumeCard";
@@ -15,6 +15,7 @@ import remarkGfm from "remark-gfm"
 import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { Highlighter } from "@/components/ui/highlighter";
 import { RainbowButton } from "@/components/ui/rainbow-button";
+import { FlickeringGrid } from "@/components/ui/flickering-grid"
 import {
   Drawer,
   DrawerClose,
@@ -28,6 +29,7 @@ import {
 import { DefaultChatTransport } from "ai";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { KineticText  } from "@/components/ui/kinetic-text";
+
 
 export default function Home() {
   const { messages, status, sendMessage } = useChat({
@@ -53,16 +55,28 @@ export default function Home() {
   const [started, setStarted] = useState(false);
   return (
     <>
-
-      <nav className="fixed top-0 left-0 w-full border-b bg-background shadow-md z-50 p-4 flex items-center justify-center scale-100 hover:scale-105 transition duration-300">
-        <KineticText text="Naveen's Portfolio" className="text-3xl font-bold tracking-wide" onClick={()=>setStarted(false)} />
-      </nav>
+     
+      
       {!started && status !== 'streaming' && (
+        <>
+        <div className="fixed inset-0 -z-10">
+  <FlickeringGrid
+    squareSize={100}
+    gridGap={6}
+    flickerChance={0.1}
+    color="rgb(176, 213, 255)"
+    maxOpacity={0.40}
+    className="w-full h-full"
+      />
+      </div>
+        <nav className="fixed top-0 left-0 w-full border-b  shadow-md z-50 p-4 flex items-center justify-center scale-100 hover:scale-105 transition duration-300">
+        <KineticText text="Naveen's Portfolio" className="text-3xl font-bold tracking-wide" onClick={()=>setStarted(false)} />
+        </nav>
         <div className="flex h-screen flex-col items-center justify-center gap-4">
           <DiaTextReveal className="text-7xl font-bold tracking-light" colors={["#22d3ee", "#818cf8", "#f472b6", "#34d399"]}
             delay={0.35}
             duration={2.4}
-            text="Welcome to my portfolio!"
+            text="Hi I'm Naveen!"
           />
           <p className="text-xl">
             The{" "}
@@ -76,14 +90,17 @@ export default function Home() {
             .
           </p>
           <InteractiveHoverButton onClick={() => setStarted(true)}>
-            Get Started
+            Chat with my portfolio
           </InteractiveHoverButton>
-
         </div>
-
+        </>
       )}
       {
         started && (
+          <>
+          <nav className="fixed top-0 left-0 w-full border-b bg-background shadow-md z-50 p-4 flex items-center justify-center scale-100 hover:scale-105 transition duration-300">
+        <KineticText text="Naveen's Portfolio" className="text-3xl font-bold tracking-wide" onClick={()=>setStarted(false)} />
+      </nav>
           <div className="flex h-screen flex-col bg-background pt-20">
             <div className="flex-1 overflow-y-auto p-4 space-y-4 animate-fade-in">
               {messages.map((message) => (
@@ -148,6 +165,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+          </>
         )
       }
 

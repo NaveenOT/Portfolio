@@ -19,6 +19,8 @@
     "@langchain/community": "^1.1.28",
     "@langchain/core": "^1.1.47",
     "@langchain/groq": "^1.2.1",
+    "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^1.12.95",
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.106.0",
     "@tabler/icons-react": "^3.44.0",
